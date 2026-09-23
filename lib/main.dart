@@ -1,4 +1,5 @@
 import 'package:flowee_app/screens/home_screen.dart';
+import 'package:flowee_app/screens/main_screen.dart';
 import 'package:flowee_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class FloweeApp extends StatelessWidget {
       title: "Flowee App",
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
-      home: HomeScreen(),
+      home: MainScreen(),
     );
   }
 }
