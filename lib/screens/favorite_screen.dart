@@ -44,29 +44,51 @@ class FavoriteScreen extends StatelessWidget {
 
                   builder: (context, favoriteIds, _) {
                     final favoritePerfume = dummyPerfumes
-                        .where(
-                          (perfume) =>
-                              favoriteIds.contains(perfume.id),
-                        )
+                        .where((perfume) => favoriteIds.contains(perfume.id))
                         .toList();
                     if (favoritePerfume.isEmpty) {
                       return const EmptyFavoriteState();
                     }
-                    return GridView.builder(
-                      padding: const EdgeInsets.fromLTRB(
-                        16,
-                        18,
-                        16,
-                        100,
+                    SizedBox(
+                      height: 360,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.only(left: 20),
+                        itemCount: favoritePerfume.length,
+                        itemBuilder: (context, index) {
+                          final perfume = favoritePerfume[index];
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              right: index == favoritePerfume.length - 1
+                                  ? 20
+                                  : 14,
+                            ),
+                            child: SizedBox(
+                              width: 300,
+                              child: PerfumeCard(
+                                perfume: perfume,
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          DetailScreen(perfume: perfume),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
                       ),
+                    );
+                    return GridView.builder(
+                      padding: const EdgeInsets.fromLTRB(16, 18, 16, 100),
 
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.68,
-                      ),
+                            crossAxisCount: 1,
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 10,
+                          ),
 
                       itemCount: favoritePerfume.length,
 
@@ -79,9 +101,7 @@ class FavoriteScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => DetailScreen(
-                                  perfume: perfume,
-                                ),
+                                builder: (_) => DetailScreen(perfume: perfume),
                               ),
                             );
                           },
