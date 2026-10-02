@@ -47,7 +47,7 @@ class _LoginFormCardState extends State<LoginFormCard> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Masuk ke Akunmu',
+              'Log in to your Account',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 19,
@@ -57,7 +57,7 @@ class _LoginFormCardState extends State<LoginFormCard> {
             ),
             SizedBox(height: 5),
             Text(
-              'Isi data dibawah ini untuk mulai berbelanja',
+              'Please fill the data below',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 13,
@@ -88,7 +88,7 @@ class _LoginFormCardState extends State<LoginFormCard> {
                   onPressed: () => setState(() => _obscure = !_obscure),
                 )
               ),
-              validator: (value) => ( value == null || value.isEmpty ) ? 'Password tidak boleh kosong' : null,
+              validator: (value) => ( value == null || value.isEmpty ) ? 'Password cannot be empty' : null,
             ),
             SizedBox(height: 26),
             ElevatedButton(
@@ -99,7 +99,7 @@ class _LoginFormCardState extends State<LoginFormCard> {
                     height: 22,
                     child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
                   )
-                  : Text('Masuk')
+                  : Text('Login')
             )
           ],
         ),
