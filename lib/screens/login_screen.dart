@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Email atau Password Salah, Mohon dicoba kembali')
+          content: Text('Email or Password are wrong, Please try again')
         )
       );
     }
