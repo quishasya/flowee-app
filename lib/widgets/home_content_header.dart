@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 
 class HomeContentHeader extends StatelessWidget {
   const HomeContentHeader({
-    super.key, 
-    required this.selectedCategory, 
-    required this.categories, 
-    required this.onQueryChanged, 
-    required this.onCategorySelected
-    });
+    super.key,
+    required this.selectedCategory,
+    required this.categories,
+    required this.onQueryChanged,
+    required this.onCategorySelected,
+  });
 
   final String selectedCategory;
   final List<String> categories;
@@ -23,30 +23,32 @@ class HomeContentHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(20, 12, 20, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HomeHeader(
-            onProfileTap: () => showProfileSheet(context)),
-          SizedBox(height: 18),
-          BannerCarousel(banners: dummyBanners),
-          SizedBox(height: 20),
-          SearchField(onChanged: onQueryChanged),
-          SizedBox(height: 18),
-          CategoryChipList(
-            categories: categories, 
-            selectedCategory: selectedCategory, 
-            onSelected: onCategorySelected
-          ),
-          SizedBox(height: 22),
-          Text(
-            'Rekomendasi Untukmu',
-            style: AppTheme.display(fontSize: 18),
-          ),
-          SizedBox(height: 14)
-        ],
+    return Container(
+      color: Colors.transparent,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SafeArea(
+              bottom: false,
+              child:  HomeHeader(onProfileTap: () => showProfileSheet(context))
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Explore\nthe Best Scent',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+                height: 1.18,
+              ),
+            ),
+            const SizedBox(height: 14),
+            SearchField(onChanged: onQueryChanged),
+          ],
+        ),
       ),
     );
   }

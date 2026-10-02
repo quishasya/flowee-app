@@ -15,16 +15,19 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        hintText: 'Cari mawar, tulip, atau anggrek....',
-        hintStyle: TextStyle(color: AppTheme.textSecondary, fontSize: 13.5),
-        prefixIcon: Icon(Icons.search_rounded, color: AppTheme.textSecondary),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18),
-          borderSide: BorderSide.none,
-        ) 
+    return SizedBox(
+      height: 40,
+      child: TextField(
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          hintText: 'Search for Woody, Leather, Amber....',
+          hintStyle: TextStyle(color: Colors.grey, fontSize: 13.5),
+          prefixIcon: Icon(Icons.search_rounded, color: AppTheme.textSecondary),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(0),
+            borderSide: BorderSide(color: Colors.blue, width: 1),
+          ) 
+        ),
       ),
     );
   }

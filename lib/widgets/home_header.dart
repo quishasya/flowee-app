@@ -11,27 +11,6 @@ class HomeHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hello, Demo User 🤣',
-              style: TextStyle(
-                fontSize: 13,
-                color: AppTheme.textSecondary
-              ),
-            ),
-            SizedBox(height: 3,),
-            Text(
-              'Bunga Apa Hari ini?',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w800,
-                color: AppTheme.textPrimary
-              ),
-            )
-          ],
-        ),
         InkWell(
           onTap: onProfileTap,
           customBorder: CircleBorder(),
@@ -53,7 +32,29 @@ class HomeHeader extends StatelessWidget {
             ),
             child: Icon(Icons.person_rounded, color: Colors.white),
           ),
-        )
+        ),
+       
+        // Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     Text(
+        //       'Hello, Demo User 🤣',
+        //       style: TextStyle(
+        //         fontSize: 13,
+        //         color: AppTheme.textSecondary
+        //       ),
+        //     ),
+        //     SizedBox(height: 3,),
+        //     Text(
+        //       'Wangi apa yang cocok Hari ini?',
+        //       style: TextStyle(
+        //         fontSize: 12,
+        //         fontWeight: FontWeight.w800,
+        //         color: AppTheme.textPrimary
+        //       ),
+        //     )
+        //   ],
+        // ),
       ],
     );
   }

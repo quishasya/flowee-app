@@ -1,4 +1,5 @@
 import 'package:flowee_app/data/dummy_data.dart';
+import 'package:flowee_app/screens/login_screen.dart';
 import 'package:flowee_app/state/auth_controller.dart';
 import 'package:flowee_app/theme/app_theme.dart';
 import 'package:flowee_app/widgets/sheet_drag_handle.dart';
@@ -22,9 +23,9 @@ class _ProfileSheetContent extends StatelessWidget {
   Future<void> _logout(BuildContext sheetContext) async {
     Navigator.of(sheetContext).pop(); //kembali ke login screen
     await AuthController.instance.logout();
-    if (!homeContext.mounted) {
+    if (homeContext.mounted) {
       Navigator.of(homeContext).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => Placeholder()), // arahkan ke login screen
+        MaterialPageRoute(builder: (_) => const LoginScreen()), 
         /**
          * PREDICATE INI BILANG: "hapus semua halaman sebelumnya dari riwayat navigasi" 
          * jadi setelah logout ga balik lg ke homescreen
@@ -79,7 +80,7 @@ class _ProfileSheetContent extends StatelessWidget {
             child: OutlinedButton.icon(
               onPressed: () => _logout(context),
               icon: Icon(Icons.logout_rounded, size: 18),
-              label: Text('Keluar'),
+              label: Text('Log out'),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppTheme.primaryDark,
                 side: BorderSide(color: AppTheme.primary),

@@ -17,8 +17,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  // dibungkus menjadi 1 variabel karna pakenya index, sedangkan index punya tipe data list 
-  static const _screens = [HomeScreen(), FavoriteScreen()];
+  // dibungkus menjadi 1 variabel karna pakenya index, sedangkan index punya tipe data list
+  static const _screens = [
+    HomeScreen(),
+    FavoriteScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +33,49 @@ class _MainScreenState extends State<MainScreen> {
       extendBody: true,
       body: IndexedStack(index: _selectedIndex, children: _screens),
       bottomNavigationBar: SafeArea(
-        minimum: EdgeInsets.fromLTRB(20, 0, 20, 16),
-        child: Container(
-          height: 64,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.10),
-                blurRadius: 24,
-                offset: Offset(0, 10),
-              )
-            ]
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: BottomNavItem(
-                  icon: Icons.home_rounded, 
-                  label: 'Home', 
-                  selected: _selectedIndex == 0, 
-                  onTap: () => setState(() => _selectedIndex = 0),
+        child: Padding(
+          padding: EdgeInsets.only(left: 110, right: 110, bottom: 16),
+          child: Container(
+            height: 76,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(40),
+              // Shadow container navbar
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.08),
+                  blurRadius: 20,
+                  spreadRadius: 0,
+                  offset: const Offset(0, 6),
                 ),
-              ),
-              Expanded(
-                child: BottomNavItem(
-                  icon: Icons.favorite_rounded, 
-                  label: 'Favorite', 
-                  selected: _selectedIndex == 0, 
-                  onTap: () => setState(() => _selectedIndex = 0),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BottomNavItem(
+                  icon: Icons.home_rounded,
+                  label: 'Home',
+                  selected: _selectedIndex == 0,
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 0;
+                    });
+                  },
                 ),
-              )
-            ],
+                BottomNavItem(
+                  icon: Icons.shopping_bag_rounded,
+                  label: 'Favorite',
+                  selected: _selectedIndex == 1,
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = 1;
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

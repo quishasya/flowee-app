@@ -1,8 +1,8 @@
 import 'package:flowee_app/data/dummy_data.dart';
 import 'package:flowee_app/screens/detail_screen.dart';
 import 'package:flowee_app/state/favorites_controller.dart';
-import 'package:flowee_app/theme/app_theme.dart';
-import 'package:flowee_app/widgets/flower_card.dart';
+import 'package:flowee_app/widgets/empty_favorite_state.dart';
+import 'package:flowee_app/widgets/perfume_card.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -10,54 +10,90 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsetsGeometry.fromLTRB(20, 16, 20, 8),
-            child: Text('Favorite', style: AppTheme.display(fontSize: 24),),
-          ),
-          Expanded(
-            child: ValueListenableBuilder<Set<String>>(
-              valueListenable: FavoritesController.instance,
-              builder: (context, favoriteIds, _) {
-                // nyari si flowewrs dimana berdasarkan idnya
-                final favoriteFlowers = dummyFlowers
-                  // nyari si id flowers ya gitu deh
-                  .where((flower) => favoriteIds.contains(flower.id))
-                  // menjadikan si data menjadi sebuah list
-                  .toList();
-
-                if (favoriteFlowers.isEmpty) {
-                  return const Placeholder(); // class Empty fav state
-                }
-
-                return GridView.builder(
-                  padding: EdgeInsets.fromLTRB(20, 4, 20, 100),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 0.68
+    return Scaffold(
+      backgroundColor: const Color(0xFF3157A8),
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(20, 16, 20, 20),
+              child: Text(
+                'Your Cart',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFF7F9FC),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
                   ),
-                  itemCount: favoriteFlowers.length,
-                  itemBuilder: (context, index) {
-                    final flower = favoriteFlowers[index];
-                    return FlowerCard(
-                      flower: flower, 
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => DetailScreen(flower: flower))
+                ),
+
+                child: ValueListenableBuilder<Set<String>>(
+                  valueListenable: FavoritesController.instance,
+
+                  builder: (context, favoriteIds, _) {
+                    final favoritePerfume = dummyPerfumes
+                        .where(
+                          (perfume) =>
+                              favoriteIds.contains(perfume.id),
+                        )
+                        .toList();
+                    if (favoritePerfume.isEmpty) {
+                      return const EmptyFavoriteState();
+                    }
+                    return GridView.builder(
+                      padding: const EdgeInsets.fromLTRB(
+                        16,
+                        18,
+                        16,
+                        100,
+                      ),
+
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 0.68,
+                      ),
+
+                      itemCount: favoritePerfume.length,
+
+                      itemBuilder: (context, index) {
+                        final perfume = favoritePerfume[index];
+
+                        return PerfumeCard(
+                          perfume: perfume,
+
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => DetailScreen(
+                                  perfume: perfume,
+                                ),
+                              ),
+                            );
+                          },
                         );
-                      }
+                      },
                     );
                   },
-                );
-              }
-            )
-          )
-        ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

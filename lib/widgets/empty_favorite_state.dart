@@ -9,16 +9,16 @@ class EmptyFavoriteState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.favorite_border, size: 64, color: Colors.grey.shade300),
+          Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey.shade300),
           SizedBox(height: 12),
           Text(
-            'Belum ada Bunga Favorite',
+            'Cart is Still Empty',
             style: TextStyle(
               color: Colors.grey.shade600,
             ),
           ),
           Text(
-            'Ketuk icon hati pada bunga untuk menambahkannya',
+            'Go Discover your Favorite Perfume',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.grey.shade400,

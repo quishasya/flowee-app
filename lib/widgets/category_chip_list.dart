@@ -12,9 +12,10 @@ class CategoryChipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 36,
+      height: 34,
       // pake listview.separated karna dia setiap listnya punya action yg beda beda
       child: ListView.separated(
+        scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         // memisahkan 1 item dgn item lainnya dengan jarak
         separatorBuilder: (_, _) => SizedBox(width: 8),
@@ -30,15 +31,15 @@ class CategoryChipList extends StatelessWidget {
             selectedColor: AppTheme.primary,
             showCheckmark: false,
             labelStyle: TextStyle(
-              color: isSelected ? Colors.white : AppTheme.textPrimary,
+              color: isSelected ? Colors.white : AppTheme.primary,
               fontWeight: FontWeight.w600,
-              fontSize: 13
+              fontSize: 16
             ),
-            backgroundColor: isSelected ? AppTheme.primary : AppTheme.primarySoft.withValues(alpha: 0.5),
-            side: BorderSide.none,
+            backgroundColor: isSelected ? AppTheme.primary : Colors.transparent,
+            side: isSelected ? BorderSide.none : BorderSide(width: 1, color: AppTheme.primary),
             elevation: 0,
             pressElevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           );
         },
       ),

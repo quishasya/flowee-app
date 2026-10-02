@@ -1,7 +1,9 @@
 import 'package:flowee_app/data/dummy_data.dart';
-import 'package:flowee_app/models/flower.dart';
+import 'package:flowee_app/models/perfume.dart';
 import 'package:flowee_app/screens/detail_screen.dart';
-import 'package:flowee_app/widgets/flower_card.dart';
+import 'package:flowee_app/widgets/banner_carousel.dart';
+import 'package:flowee_app/widgets/category_chip_list.dart';
+import 'package:flowee_app/widgets/perfume_card.dart';
 import 'package:flowee_app/widgets/home_content_header.dart';
 import 'package:flutter/material.dart';
 
@@ -14,76 +16,143 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String _query = '';
-  String _selectedCategory = 'Semua';
+  String _selectedCategory = 'All';
 
-// method getter. untuk mendapatkan data dari private class/atribut
   List<String> get _categories {
-    final unique = <String>{'Semua', ...dummyFlowers.map((f) => f.category)};
+    final unique = <String>{
+      'All',
+      ...dummyPerfumes.map((perfume) => perfume.category),
+    };
+
     return unique.toList();
   }
 
-  List<Flower> get _filteredFlowers {
-    return dummyFlowers.where((flower) {
-      // ngasih tau misal ketika user ngetik lowercase masih bisa dicari.
-      final matchesQuery = flower.name.toLowerCase().contains(_query.toLowerCase());
-      // menampilkan card bunga sesuai kategori yg dipilih
-      final matchesCategory = _selectedCategory == 'Semua' || flower.category == _selectedCategory;
+  List<Perfume> get _filteredPerfume {
+    return dummyPerfumes.where((perfume) {
+      final matchesQuery = perfume.name.toLowerCase().contains(
+        _query.toLowerCase(),
+      );
+
+      final matchesCategory =
+          _selectedCategory == 'All' || perfume.category == _selectedCategory;
+
       return matchesQuery && matchesCategory;
     }).toList();
   }
 
-  // action ketika user klik card bunga, langsung navigasi ke screen detail
-  void _openDetail(Flower flower) {
+  void _openDetail(Perfume perfume) {
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (_) => DetailScreen(flower: flower)));
+    ).push(MaterialPageRoute(builder: (_) => DetailScreen(perfume: perfume)));
   }
 
   @override
   Widget build(BuildContext context) {
-    final flowers = _filteredFlowers;
-    
-    return SafeArea(
-      child: CustomScrollView(
-        // perantara/adapter antara widget ke customScrollView, ibarat ratu dan rakyat (harus ada perantara)
+    final perfumes = _filteredPerfume;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFF3157A8),
+      body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: HomeContentHeader(
-              selectedCategory: _selectedCategory, 
-              categories: _categories, 
-              // membaca apakah dia true/false
-              onQueryChanged: (value) => setState(() => _query = value), 
-              // _selectedCategory mengikuti value
-              onCategorySelected: (value) => setState(() => _selectedCategory = value),
-            )
+              selectedCategory: _selectedCategory,
+              categories: _categories,
+              onQueryChanged: (value) {
+                setState(() {
+                  _query = value;
+                });
+              },
+              onCategorySelected: (value) {
+                setState(() {
+                  _selectedCategory = value;
+                });
+              },
+            ),
           ),
-          // jika bunga gaada di data maka screen gabisa di scroll, hanya menampilkan text
-          if (flowers.isEmpty)
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Center(
-                child: Text('Bunga Tidak Ditemukan'),
+          SliverToBoxAdapter(
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFFF7F9FC),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(80)),
               ),
-            )
-          else 
-            SliverPadding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 100),
-              sliver: SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.68
+              child: Padding(
+                padding: EdgeInsets.only(top: 28, bottom: 40),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 0, 10),
+                      child: CategoryChipList(
+                        categories: _categories,
+                        selectedCategory: _selectedCategory,
+                        onSelected: (value) {
+                          setState(() {
+                            _selectedCategory = value;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 18),
+                    if (perfumes.isEmpty)
+                      SizedBox(
+                        height: 250,
+                        child: Center(
+                          child: Text(
+                            'Perfume does not exist',
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        ),
+                      )
+                    else
+                      SizedBox(
+                        height: 370,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.only(left: 20),
+                          itemCount: perfumes.length,
+                          itemBuilder: (context, index) {
+                            final perfume = perfumes[index];
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                right: index == perfumes.length - 1 ? 20 : 14,
+                              ),
+                              child: SizedBox(
+                                width: 300,
+                                child: PerfumeCard(
+                                  perfume: perfume,
+                                  onTap: () {
+                                    _openDetail(perfume);
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'Best Offers',
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: BannerCarousel(banners: dummyBanners),
+                    ),
+                  ],
                 ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => FlowerCard(
-                    flower: flowers[index], 
-                    onTap: () => _openDetail(flowers[index]),
-                  ),
-                  childCount: flowers.length
-                ), 
               ),
-            )
+            ),
+          ),
         ],
       ),
     );

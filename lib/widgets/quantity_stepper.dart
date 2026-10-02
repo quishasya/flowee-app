@@ -14,7 +14,7 @@ class QuantityStepper extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Jumlah',
+          'Amount',
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w700,
@@ -23,7 +23,7 @@ class QuantityStepper extends StatelessWidget {
         ),
         Row(
           children: [
-            _StepperButton(icon: Icons.remove_rounded, onTap: onIncrement),
+            _StepperButton(icon: Icons.remove_rounded, onTap: onDecrement),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 18),
               child: Text(
@@ -31,7 +31,7 @@ class QuantityStepper extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
             ),
-            _StepperButton(icon: Icons.add_rounded, onTap: onDecrement)
+            _StepperButton(icon: Icons.add_rounded, onTap: onIncrement)
           ],
         )
       ],
@@ -55,7 +55,7 @@ class _StepperButton extends StatelessWidget {
         height: 34,
         decoration: BoxDecoration(
           color: AppTheme.primary.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(10)
+          borderRadius: BorderRadius.circular(28)
         ),
         child: Icon(icon, size: 18, color: AppTheme.primaryDark),
       ),

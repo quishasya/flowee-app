@@ -1,11 +1,11 @@
-import 'package:flowee_app/models/flower.dart';
+import 'package:flowee_app/models/perfume.dart';
 import 'package:flowee_app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ProductSummary extends StatelessWidget {
-  const ProductSummary({super.key, required this.flower});
+  const ProductSummary({super.key, required this.perfume});
 
-  final Flower flower;
+  final Perfume perfume;
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,16 @@ class ProductSummary extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CategoryBadge(text: flower.category),
+              _CategoryBadge(text: perfume.category),
               SizedBox(height: 10,),
               Text(
-                flower.name,
+                perfume.name,
                 style: AppTheme.display(fontSize: 24),
               )
             ],
           )
         ),
-        _RatingBadge(rating: flower.rating)        
+        _RatingBadge(rating: perfume.rating)        
       ],
     );
   }
@@ -39,17 +39,17 @@ class _CategoryBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
-        color: AppTheme.leaf.withValues(alpha: 0.12),
+        color: AppTheme.primarySoft,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         text,
         style: TextStyle(
-          color: AppTheme.leaf,
-          fontSize: 11,
-          fontWeight: FontWeight.w700
+          color: AppTheme.primary,
+          fontSize: 14,
+          fontWeight: FontWeight.w600
         ),
       ),
     );

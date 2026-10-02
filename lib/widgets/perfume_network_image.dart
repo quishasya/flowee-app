@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
  * 1. sedang dimuat/loading: menampilkan indikator loading
  * 2. gagal dimuat: menampilkan ikon pengganti
  */
-class FlowerNetworkImage extends StatelessWidget {
-  const FlowerNetworkImage({
+class PerfumeNetworkImage extends StatelessWidget {
+  const PerfumeNetworkImage({
     super.key, 
     required this.imageUrl, 
     required this.fallbackIcon,
@@ -25,7 +25,7 @@ class FlowerNetworkImage extends StatelessWidget {
       imageUrl,
       fit: fit,
       width: double.infinity,
-      height: double.infinity,
+      // height: double.infinity,
       // loading indicator, yg akan dijalankan terus menerus oleh Flutter 
       // selama gambarnya masih proses download dari internet
       loadingBuilder: (context, child, progress) {

@@ -10,9 +10,11 @@ class DetailTotalBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 12),
         padding: EdgeInsets.fromLTRB(22, 14, 22, 14),
         decoration: BoxDecoration(
           color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.06),
@@ -25,7 +27,7 @@ class DetailTotalBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Total Harga',
+              'Total Price',
               style: TextStyle(fontSize: 13, color: AppTheme.textSecondary),
             ),
             Text(

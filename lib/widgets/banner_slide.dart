@@ -11,7 +11,7 @@ class BannerSlide extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 2),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(20),
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -34,8 +34,8 @@ class BannerSlide extends StatelessWidget {
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [
-                    banner.gradientColors.first.withValues(alpha: 0.92),
-                    banner.gradientColors.last.withValues(alpha: 0.35)
+                    banner.gradientColors.first.withValues(alpha: 0.40),
+                    banner.gradientColors.last.withValues(alpha: 0.20)
                   ]
                 )
               )

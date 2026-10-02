@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+
+class Perfume {
+  final String id;
+  final String name;
+  final String category;
+  final List<String> fragranceNotes;
+  final int price;
+  final double rating;
+  final String description;
+  final String imageUrl;
+  final IconData icon;
+  final Color color;
+
+  Perfume({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.fragranceNotes,
+    required this.price,
+    required this.rating,
+    required this.description,
+    required this.imageUrl,
+    required this.icon,
+    required this.color,
+  });
+}
